@@ -1,0 +1,42 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+
+public class CheckedDemo {
+static void fileDemo(){
+	File file = new File("E:\\Spring_Apps\\Abcd.txt");
+	FileOutputStream fo = null;
+	try {
+		file.createNewFile();
+		fo = new FileOutputStream(file);
+		System.out.println("File Open");
+		int d[]={1,2};
+		d[99]=100;
+		fo.write("Hello This is the data ".getBytes());
+		System.out.println("Data Written ....");
+		//fo.close();
+		//System.exit(0);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		System.out.println("File Can't Create , Plz check the Path");
+	}
+	finally{
+		System.out.println("File Close");
+		try {
+			fo.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	System.out.println("Method End");
+}
+	public static void main(String[] args) {
+		fileDemo();
+		
+
+	}
+
+}

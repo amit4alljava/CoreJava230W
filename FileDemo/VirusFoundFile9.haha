@@ -1,0 +1,68 @@
+import org.apache.log4j.Logger;
+// Checked Exception
+class TransactionFailedException extends RuntimeException
+{
+	@Override
+	public String toString(){
+		return "Transaction Failed , Due to the Balance is Zero";
+	}
+}
+class Demo
+{
+	static Logger log = Logger.getLogger(Demo.class);
+	static void ui(){
+		log.debug("UI Code Starts.....");
+		System.out.println("UI Starts");
+		System.out.println("Calling BL");
+		try{
+		bl();
+		System.out.println("Printing BL Data..");
+		System.out.println("UI Ends");
+		log.debug("UI Code Ends.....");
+		}
+		catch(TransactionFailedException e){
+			System.out.println(e);
+			//e.printStackTrace();
+			log.error(e);
+			
+		}
+		
+	}
+	static void bl() /*throws TransactionFailedException*/{
+		log.debug("BL Code Starts.....");
+		System.out.println("Logic Starts..");
+		System.out.println("Calling DB ");
+		db();
+		System.out.println("Processsing....");
+		System.out.println("Logic Ends");
+		log.debug("BL Code Ends.....");
+	}
+	static void db() /*throws TransactionFailedException*/{
+		int balance = 0;
+		log.debug("DB Code Starts.....");
+		try{
+		System.out.println("Connection Open");
+		if(balance<=0){
+			throw new TransactionFailedException();
+		}
+		//int d = 100/0; //throw new ArithmeticException();
+		System.out.println("Do Query");
+		System.out.println("Get the Result");
+		log.debug("DB Code End.....");
+		}
+		/*catch(Exception e){
+			System.out.println("DB Exception Caught...");
+		}*/
+		finally{
+			System.out.println("Connection Close");
+		}
+	}
+}
+public class ThrowEarlyAndCatchLater {
+
+	public static void main(String[] args) {
+		Demo.ui();
+
+	}
+
+}
